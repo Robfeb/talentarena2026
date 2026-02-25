@@ -3,6 +3,7 @@
     <h1>Talent Arena 2026 Agenda</h1>
 
     <p>{{ sessionCount() }} shown / {{ totalCount() }} total · {{ favoriteCount() }} favorites</p>
+    <p class="now-label">Now: {{ currentDateTimeLabel() }}</p>
   </header>
 
   <section class="controls">
@@ -17,11 +18,16 @@
       <button type="button" [class.active]="showOnlyFavorites()" (click)="toggleFavoritesOnly()">
         {{ showOnlyFavorites() ? 'Showing Favorites' : 'Show Favorites Only' }}
       </button>
+      <button type="button" [class.active]="!showFinishedSessions()" (click)="toggleFinishedSessions()">
+        {{ showFinishedSessions() ? 'Hide Finished' : 'Show Finished' }}
+      </button>
       <button type="button" class="danger" (click)="clearFavorites()" [disabled]="favoriteCount() === 0">
         Clear Favorites
       </button>
     </div>
   </section>
+
+
 
   <section class="combined-filters">
     <div class="filter-head">
@@ -35,6 +41,19 @@
     </div>
 
     @if (isCombinedFiltersExpanded()) {
+    <section class="search-filter">
+      <label for="session-search">Search in all session fields</label>
+      <div class="search-filter-row">
+        <input
+          id="session-search"
+          type="text"
+          placeholder="Type speaker, title, stage, category, language..."
+          [value]="searchText()"
+          (input)="updateSearchText($event)"
+        >
+        <button type="button" (click)="clearSearchText()" [disabled]="searchText().trim().length === 0">Clear Search</button>
+    </div>
+  </section>
       <div class="filter-grid">
         <section class="filter-group">
           <div class="filter-group-head">
@@ -99,12 +118,30 @@
         <h2>{{ group.name }}</h2>
         <div class="cards">
           @for (session of group.sessions; track getSessionId(session)) {
-            <article class="card">
+            <article
+              class="card"
+              [style.--slot-hue]="getCardHue(session)"
+              [class.current-session]="isCurrentSession(session)"
+              [id]="getSessionDomId(session)"
+              [attr.tabindex]="isCurrentSession(session) ? '-1' : null"
+            >
               <div class="card-top">
-                <strong>{{ session.start }} - {{ session.end }}</strong>
-                <button type="button" class="favorite" [class.active]="isFavorite(session)" (click)="toggleFavorite(session)">
-                  {{ isFavorite(session) ? '★ Favorite' : '☆ Favorite' }}
-                </button>
+                <strong>
+                  @if (isFinishedSession(session)) {
+                <span class="session-status finished">🔒</span>
+              }
+              {{ session.start }} - {{ session.end }}</strong>
+                <div class="card-actions">
+                  <span class="stage-chip" [class.xpro]="isXproSession(session)" [title]="session.stage">
+                    @if (isXproSession(session)) {
+                      <span class="stage-chip-icon">⚡</span>
+                    }
+                    {{ session.stage }}
+                  </span>
+                  <button type="button" class="favorite" [class.active]="isFavorite(session)" (click)="toggleFavorite(session)">
+                    {{ isFavorite(session) ? '★' : '☆' }}
+                  </button>
+                </div>
               </div>
               <h3>{{ session.title }}</h3>
               <p><strong>Speaker:</strong> {{ session.speaker }}</p>

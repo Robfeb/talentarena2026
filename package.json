@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:ghpages": "ng build --configuration production --base-href /talentarena2026/",
+    "deploy": "npm run build:ghpages && npx angular-cli-ghpages --dir=dist/talentarena-app/browser",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:talentarena-app": "node dist/talentarena-app/server/server.mjs"
@@ -30,6 +32,7 @@
     "@angular/platform-browser": "^20.3.0",
     "@angular/platform-server": "^20.3.0",
     "@angular/router": "^20.3.0",
+    "@angular/service-worker": "^20.3.0",
     "@angular/ssr": "^20.3.17",
     "express": "^5.1.0",
     "rxjs": "~7.8.0",
