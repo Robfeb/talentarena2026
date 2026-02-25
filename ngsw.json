@@ -1,0 +1,79 @@
+{
+  "configVersion": 1,
+  "timestamp": 1772009600896,
+  "index": "/talentarena2026/index.csr.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/talentarena2026/favicon.ico",
+        "/talentarena2026/index.csr.html",
+        "/talentarena2026/index.html",
+        "/talentarena2026/main-HX2E7XDI.js",
+        "/talentarena2026/manifest.webmanifest",
+        "/talentarena2026/styles-5INURTSO.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/talentarena2026/icons/icon-128x128.png",
+        "/talentarena2026/icons/icon-144x144.png",
+        "/talentarena2026/icons/icon-152x152.png",
+        "/talentarena2026/icons/icon-192x192.png",
+        "/talentarena2026/icons/icon-384x384.png",
+        "/talentarena2026/icons/icon-512x512.png",
+        "/talentarena2026/icons/icon-72x72.png",
+        "/talentarena2026/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/talentarena2026/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
+    "/talentarena2026/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
+    "/talentarena2026/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
+    "/talentarena2026/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
+    "/talentarena2026/icons/icon-192x192.png": "15c4180454633880d98674aa7394656196c91584",
+    "/talentarena2026/icons/icon-384x384.png": "94a915751ef6c9282df9aea405ad679230631814",
+    "/talentarena2026/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
+    "/talentarena2026/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
+    "/talentarena2026/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
+    "/talentarena2026/index.csr.html": "df32e8f539a78e20efeb2802ef2ff90450df89cd",
+    "/talentarena2026/index.html": "feefdd0ab837b2ad39891c2120e7b8a327bb5a2a",
+    "/talentarena2026/main-HX2E7XDI.js": "fdcbb9a1ab736b02791136cdbde95cd7f26bd622",
+    "/talentarena2026/manifest.webmanifest": "d05d1588f1813d246cdf7f1ff87a146453f276a7",
+    "/talentarena2026/styles-5INURTSO.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
