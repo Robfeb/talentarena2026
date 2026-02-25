@@ -40,6 +40,7 @@ export class App implements OnDestroy {
   protected readonly selectedDays = signal<Set<string>>(new Set<string>());
   protected readonly selectedStages = signal<Set<string>>(new Set<string>());
   protected readonly selectedCategories = signal<Set<string>>(new Set<string>());
+  protected readonly isControlsExpanded = signal(true);
   protected readonly isCombinedFiltersExpanded = signal(false);
   protected readonly showOnlyFavorites = signal(false);
   protected readonly showFinishedSessions = signal(true);
@@ -288,6 +289,10 @@ export class App implements OnDestroy {
 
   protected toggleCombinedFiltersExpanded(): void {
     this.isCombinedFiltersExpanded.update((value) => !value);
+  }
+
+  protected toggleControlsExpanded(): void {
+    this.isControlsExpanded.update((value) => !value);
   }
 
   private async loadSessions(): Promise<void> {
