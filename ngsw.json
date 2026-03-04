@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1772014732486,
+  "timestamp": 1772635107969,
   "index": "/talentarena2026/index.csr.html",
   "assetGroups": [
     {
@@ -14,7 +14,7 @@
         "/talentarena2026/favicon.ico",
         "/talentarena2026/index.csr.html",
         "/talentarena2026/index.html",
-        "/talentarena2026/main-Y4VN7KPF.js",
+        "/talentarena2026/main-3ESQ73I2.js",
         "/talentarena2026/manifest.webmanifest",
         "/talentarena2026/styles-5INURTSO.css"
       ],
@@ -51,9 +51,9 @@
     "/talentarena2026/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
     "/talentarena2026/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
     "/talentarena2026/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
-    "/talentarena2026/index.csr.html": "6121b2aa386d0593fd57c37dca894cd7c236be54",
-    "/talentarena2026/index.html": "2016263e3c9e71476d3b6b71899932d95200efa6",
-    "/talentarena2026/main-Y4VN7KPF.js": "a24fcce298ef4d1b80a442d0858765833e600998",
+    "/talentarena2026/index.csr.html": "550a858cd17acf5cb222a436b3b875a41f9f8eb3",
+    "/talentarena2026/index.html": "3048a2c5e3e67302273fe7a31e793b6106bd83f1",
+    "/talentarena2026/main-3ESQ73I2.js": "a85cd6d528619aa5cf6eac041994d670927b166c",
     "/talentarena2026/manifest.webmanifest": "d05d1588f1813d246cdf7f1ff87a146453f276a7",
     "/talentarena2026/styles-5INURTSO.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
   },
