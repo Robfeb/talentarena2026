@@ -3,6 +3,7 @@ import { Component, OnDestroy, computed, signal } from '@angular/core';
 type GroupMode = 'all' | 'day' | 'stage' | 'category';
 
 interface Session {
+  ID: number;
   date: string;
   start: string;
   end: string;
@@ -44,7 +45,7 @@ export class App implements OnDestroy {
   protected readonly isCombinedFiltersExpanded = signal(false);
   protected readonly showOnlyFavorites = signal(false);
   protected readonly showFinishedSessions = signal(true);
-  protected readonly favoriteIds = signal<Set<string>>(this.readFavoriteIds());
+  protected readonly favoriteIds = signal<Set<number>>(this.readFavoriteIds());
 
   protected readonly isLoading = signal(true);
   protected readonly loadError = signal<string | null>(null);
@@ -189,7 +190,7 @@ export class App implements OnDestroy {
   }
 
   protected clearFavorites(): void {
-    const cleared = new Set<string>();
+    const cleared = new Set<number>();
     this.favoriteIds.set(cleared);
     this.persistFavoriteIds(cleared);
   }
@@ -328,8 +329,8 @@ export class App implements OnDestroy {
     return session.category;
   }
 
-  protected getSessionId(session: Session): string {
-    return [session.date, session.start, session.end, session.stage, session.title, session.speaker].join('|');
+  protected getSessionId(session: Session): number {
+    return session.ID;
   }
 
   protected getCardHue(session: Session): number {
@@ -364,7 +365,7 @@ export class App implements OnDestroy {
   }
 
   protected getSessionDomId(session: Session): string {
-    return `session-${this.getSessionId(session).replace(/[^a-zA-Z0-9_-]/g, '-')}`;
+    return `session-${this.getSessionId(session)}`;
   }
 
   private matchesCombinedFilters(session: Session): boolean {
@@ -526,25 +527,33 @@ export class App implements OnDestroy {
     return (hours || 0) * 60 + (minutes || 0);
   }
 
-  private readFavoriteIds(): Set<string> {
+  private readFavoriteIds(): Set<number> {
     if (typeof localStorage === 'undefined') {
-      return new Set<string>();
+      return new Set<number>();
     }
 
     const rawValue = localStorage.getItem(this.favoriteStorageKey);
     if (!rawValue) {
-      return new Set<string>();
+      return new Set<number>();
     }
 
     try {
-      const parsed = JSON.parse(rawValue) as string[];
-      return new Set(parsed);
+      const parsed = JSON.parse(rawValue);
+      if (!Array.isArray(parsed)) {
+        return new Set<number>();
+      }
+
+      const normalizedIds = parsed
+        .map((value) => (typeof value === 'number' ? value : Number(value)))
+        .filter((value) => Number.isInteger(value) && value > 0);
+
+      return new Set(normalizedIds);
     } catch {
-      return new Set<string>();
+      return new Set<number>();
     }
   }
 
-  private persistFavoriteIds(ids: Set<string>): void {
+  private persistFavoriteIds(ids: Set<number>): void {
     if (typeof localStorage === 'undefined') {
       return;
     }

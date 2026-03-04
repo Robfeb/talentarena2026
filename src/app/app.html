@@ -11,17 +11,15 @@
 
     <p>{{ sessionCount() }} shown / {{ totalCount() }} total · {{ favoriteCount() }} favorites</p>
     <p class="now-label">Now: {{ currentDateTimeLabel() }}</p>
+    <button type="button" (click)="toggleControlsExpanded()">
+      {{ isControlsExpanded() ? 'Collapse Filters' : 'Expand Filters' }}
+    </button>
   </header>
-
+@if (isControlsExpanded()) {
   <section class="controls-panel">
     <div class="controls-panel-head">
       <h2>Filters</h2>
-      <button type="button" (click)="toggleControlsExpanded()">
-        {{ isControlsExpanded() ? 'Collapse Filters' : 'Expand Filters' }}
-      </button>
     </div>
-
-    @if (isControlsExpanded()) {
       <section class="controls">
         <div class="group-modes" aria-label="Group sessions by">
           <button type="button" [class.active]="groupMode() === 'all'" (click)="setGroupMode('all')">All Sessions</button>
@@ -119,9 +117,9 @@
           </div>
         }
       </section>
-    }
-  </section>
 
+  </section>
+}
   @if (isLoading()) {
     <p class="status">Loading sessions...</p>
   } @else if (loadError()) {
