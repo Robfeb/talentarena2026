@@ -71,7 +71,7 @@
               <div class="filter-group-head">
                 <h3>Days</h3>
                 <div class="filter-group-actions">
-                  <button type="button" (click)="selectAllDays()" [disabled]="areAllDaysSelected()">Select all</button>
+                  <button type="button" (click)="selectAllDays()" [disabled]="areAllFiltered(availableDays, selectedDays)">Select all</button>
                   <button type="button" (click)="clearDays()" [disabled]="selectedDays().size === 0">Clear</button>
                 </div>
               </div>
@@ -87,7 +87,7 @@
               <div class="filter-group-head">
                 <h3>Stages</h3>
                 <div class="filter-group-actions">
-                  <button type="button" (click)="selectAllStages()" [disabled]="areAllStagesSelected()">Select all</button>
+                  <button type="button" (click)="selectAllStages()" [disabled]="areAllFiltered(availableStages, selectedStages)">Select all</button>
                   <button type="button" (click)="clearStages()" [disabled]="selectedStages().size === 0">Clear</button>
                 </div>
               </div>
@@ -103,7 +103,7 @@
               <div class="filter-group-head">
                 <h3>Categories</h3>
                 <div class="filter-group-actions">
-                  <button type="button" (click)="selectAllCategories()" [disabled]="areAllCategoriesSelected()">Select all</button>
+                  <button type="button" (click)="selectAllCategories()" [disabled]="areAllFiltered(availableCategories, selectedCategories)">Select all</button>
                   <button type="button" (click)="clearCategories()" [disabled]="selectedCategories().size === 0">Clear</button>
                 </div>
               </div>

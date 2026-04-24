@@ -240,21 +240,9 @@ export class App implements OnDestroy {
     this.toggleSetValue(this.selectedCategories, category);
   }
 
-  protected areAllDaysSelected(): boolean {
-    const available = this.availableDays();
-    const selected = this.selectedDays();
-    return available.length > 0 && selected.size === available.length;
-  }
-
-  protected areAllStagesSelected(): boolean {
-    const available = this.availableStages();
-    const selected = this.selectedStages();
-    return available.length > 0 && selected.size === available.length;
-  }
-
-  protected areAllCategoriesSelected(): boolean {
-    const available = this.availableCategories();
-    const selected = this.selectedCategories();
+  protected areAllFiltered(availableFn: () => string[], selectedFn: () => Set<string>): boolean {
+    const available = availableFn();
+    const selected = selectedFn();
     return available.length > 0 && selected.size === available.length;
   }
 
