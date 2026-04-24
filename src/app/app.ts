@@ -13,6 +13,7 @@ interface Session {
   title: string;
   category: string;
   language: string;
+  parsedDateValue: number;
 }
 
 interface SessionGroup {
@@ -307,6 +308,9 @@ export class App implements OnDestroy {
       }
 
       const data = (await response.json()) as Session[];
+      for (const session of data) {
+        session.parsedDateValue = this.parseDate(session.date);
+      }
       this.sessions.set(this.sortSessions(data));
       this.scheduleAutoFocusCurrentSession();
     } catch (error) {
@@ -350,7 +354,7 @@ export class App implements OnDestroy {
     const now = this.now();
     const currentDateLabel = this.getCurrentDateLabel(now);
     const currentDateValue = this.parseDate(currentDateLabel);
-    const sessionDateValue = this.parseDate(session.date);
+    const sessionDateValue = session.parsedDateValue;
 
     if (sessionDateValue < currentDateValue) {
       return true;
@@ -503,7 +507,7 @@ export class App implements OnDestroy {
 
   private sortSessions(sessions: Session[]): Session[] {
     return [...sessions].sort((a, b) => {
-      const dateCompare = this.parseDate(a.date) - this.parseDate(b.date);
+      const dateCompare = a.parsedDateValue - b.parsedDateValue;
       if (dateCompare !== 0) {
         return dateCompare;
       }
