@@ -308,6 +308,25 @@ export class App implements OnDestroy {
 
       const data = (await response.json()) as Session[];
       this.sessions.set(this.sortSessions(data));
+
+      const validIds = new Set(data.map((session) => session.ID));
+      const currentFavorites = this.favoriteIds();
+      let hasInvalidFavorites = false;
+      const validFavorites = new Set<number>();
+
+      for (const id of currentFavorites) {
+        if (validIds.has(id)) {
+          validFavorites.add(id);
+        } else {
+          hasInvalidFavorites = true;
+        }
+      }
+
+      if (hasInvalidFavorites) {
+        this.favoriteIds.set(validFavorites);
+        this.persistFavoriteIds(validFavorites);
+      }
+
       this.scheduleAutoFocusCurrentSession();
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Unable to load agenda';
@@ -544,6 +563,7 @@ export class App implements OnDestroy {
       }
 
       const normalizedIds = parsed
+        .slice(0, 1000)
         .map((value) => (typeof value === 'number' ? value : Number(value)))
         .filter((value) => Number.isInteger(value) && value > 0);
 
