@@ -216,70 +216,21 @@ export class App implements OnDestroy {
     this.searchText.set('');
   }
 
-  protected isDaySelected(day: string): boolean {
-    return this.selectedDays().has(day);
+  protected isSelected(target: { (): Set<string> }, value: string): boolean {
+    return target().has(value);
   }
 
-  protected isStageSelected(stage: string): boolean {
-    return this.selectedStages().has(stage);
-  }
-
-  protected isCategorySelected(category: string): boolean {
-    return this.selectedCategories().has(category);
-  }
-
-  protected toggleDay(day: string): void {
-    this.toggleSetValue(this.selectedDays, day);
-  }
-
-  protected toggleStage(stage: string): void {
-    this.toggleSetValue(this.selectedStages, stage);
-  }
-
-  protected toggleCategory(category: string): void {
-    this.toggleSetValue(this.selectedCategories, category);
-  }
-
-  protected areAllDaysSelected(): boolean {
-    const available = this.availableDays();
-    const selected = this.selectedDays();
+  protected areAllFiltered(target: { (): Set<string> }, available: string[]): boolean {
+    const selected = target();
     return available.length > 0 && selected.size === available.length;
   }
 
-  protected areAllStagesSelected(): boolean {
-    const available = this.availableStages();
-    const selected = this.selectedStages();
-    return available.length > 0 && selected.size === available.length;
+  protected selectAllFiltered(target: { set: (value: Set<string>) => void }, available: string[]): void {
+    target.set(new Set(available));
   }
 
-  protected areAllCategoriesSelected(): boolean {
-    const available = this.availableCategories();
-    const selected = this.selectedCategories();
-    return available.length > 0 && selected.size === available.length;
-  }
-
-  protected selectAllDays(): void {
-    this.selectedDays.set(new Set(this.availableDays()));
-  }
-
-  protected clearDays(): void {
-    this.selectedDays.set(new Set<string>());
-  }
-
-  protected selectAllStages(): void {
-    this.selectedStages.set(new Set(this.availableStages()));
-  }
-
-  protected clearStages(): void {
-    this.selectedStages.set(new Set<string>());
-  }
-
-  protected selectAllCategories(): void {
-    this.selectedCategories.set(new Set(this.availableCategories()));
-  }
-
-  protected clearCategories(): void {
-    this.selectedCategories.set(new Set<string>());
+  protected clearFilter(target: { set: (value: Set<string>) => void }): void {
+    target.set(new Set<string>());
   }
 
   protected clearCombinedFilters(): void {
@@ -482,7 +433,7 @@ export class App implements OnDestroy {
     return filterSet.size === 0 || filterSet.has(value);
   }
 
-  private toggleSetValue(target: { (): Set<string>; set: (value: Set<string>) => void }, value: string): void {
+  protected toggleFilterValue(target: { (): Set<string>; set: (value: Set<string>) => void }, value: string): void {
     const updated = new Set(target());
     if (updated.has(value)) {
       updated.delete(value);
