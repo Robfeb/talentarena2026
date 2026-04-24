@@ -30,6 +30,8 @@ export class App implements OnDestroy {
   private readonly clockIntervalMs = 30_000;
   private readonly autoFocusRetryDelayMs = 80;
   private readonly maxAutoFocusAttempts = 12;
+  private readonly parsedDateCache = new Map<string, number>();
+  private readonly parsedTimeCache = new Map<string, number>();
   private clockTimerId: ReturnType<typeof setInterval> | null = null;
   private hasAutoFocusedOnLoad = false;
   private autoFocusAttempts = 0;
@@ -518,13 +520,29 @@ export class App implements OnDestroy {
   }
 
   private parseDate(value: string): number {
+    let result = this.parsedDateCache.get(value);
+    if (result !== undefined) {
+      return result;
+    }
+
     const parsed = Date.parse(`${value}, 2026`);
-    return Number.isNaN(parsed) ? Number.MAX_SAFE_INTEGER : parsed;
+    result = Number.isNaN(parsed) ? Number.MAX_SAFE_INTEGER : parsed;
+
+    this.parsedDateCache.set(value, result);
+    return result;
   }
 
   private parseTime(value: string): number {
+    let result = this.parsedTimeCache.get(value);
+    if (result !== undefined) {
+      return result;
+    }
+
     const [hours, minutes] = value.split(':').map((part) => Number(part));
-    return (hours || 0) * 60 + (minutes || 0);
+    result = (hours || 0) * 60 + (minutes || 0);
+
+    this.parsedTimeCache.set(value, result);
+    return result;
   }
 
   private readFavoriteIds(): Set<number> {
