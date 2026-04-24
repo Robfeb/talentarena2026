@@ -1,0 +1,53 @@
+--- src/app/app.html
++++ src/app/app.html
+@@ -71,13 +71,13 @@
+               <div class="filter-group-head">
+                 <h3>Days</h3>
+                 <div class="filter-group-actions">
+-                  <button type="button" (click)="selectAllDays()" [disabled]="areAllDaysSelected()">Select all</button>
+-                  <button type="button" (click)="clearDays()" [disabled]="selectedDays().size === 0">Clear</button>
++                  <button type="button" (click)="selectAllFiltered(selectedDays, availableDays())" [disabled]="areAllFiltered(selectedDays, availableDays())">Select all</button>
++                  <button type="button" (click)="clearFilter(selectedDays)" [disabled]="selectedDays().size === 0">Clear</button>
+                 </div>
+               </div>
+               @for (day of availableDays(); track day) {
+                 <label>
+-                  <input type="checkbox" [checked]="isDaySelected(day)" (change)="toggleDay(day)">
++                  <input type="checkbox" [checked]="isSelected(selectedDays, day)" (change)="toggleFilterValue(selectedDays, day)">
+                   <span>{{ day }}</span>
+                 </label>
+               }
+@@ -87,13 +87,13 @@
+               <div class="filter-group-head">
+                 <h3>Stages</h3>
+                 <div class="filter-group-actions">
+-                  <button type="button" (click)="selectAllStages()" [disabled]="areAllStagesSelected()">Select all</button>
+-                  <button type="button" (click)="clearStages()" [disabled]="selectedStages().size === 0">Clear</button>
++                  <button type="button" (click)="selectAllFiltered(selectedStages, availableStages())" [disabled]="areAllFiltered(selectedStages, availableStages())">Select all</button>
++                  <button type="button" (click)="clearFilter(selectedStages)" [disabled]="selectedStages().size === 0">Clear</button>
+                 </div>
+               </div>
+               @for (stage of availableStages(); track stage) {
+                 <label>
+-                  <input type="checkbox" [checked]="isStageSelected(stage)" (change)="toggleStage(stage)">
++                  <input type="checkbox" [checked]="isSelected(selectedStages, stage)" (change)="toggleFilterValue(selectedStages, stage)">
+                   <span>{{ stage }}</span>
+                 </label>
+               }
+@@ -103,13 +103,13 @@
+               <div class="filter-group-head">
+                 <h3>Categories</h3>
+                 <div class="filter-group-actions">
+-                  <button type="button" (click)="selectAllCategories()" [disabled]="areAllCategoriesSelected()">Select all</button>
+-                  <button type="button" (click)="clearCategories()" [disabled]="selectedCategories().size === 0">Clear</button>
++                  <button type="button" (click)="selectAllFiltered(selectedCategories, availableCategories())" [disabled]="areAllFiltered(selectedCategories, availableCategories())">Select all</button>
++                  <button type="button" (click)="clearFilter(selectedCategories)" [disabled]="selectedCategories().size === 0">Clear</button>
+                 </div>
+               </div>
+               @for (category of availableCategories(); track category) {
+                 <label>
+-                  <input type="checkbox" [checked]="isCategorySelected(category)" (change)="toggleCategory(category)">
++                  <input type="checkbox" [checked]="isSelected(selectedCategories, category)" (change)="toggleFilterValue(selectedCategories, category)">
+                   <span>{{ category }}</span>
+                 </label>
+               }
