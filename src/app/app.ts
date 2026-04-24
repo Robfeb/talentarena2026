@@ -34,6 +34,7 @@ export class App implements OnDestroy {
   private hasAutoFocusedOnLoad = false;
   private autoFocusAttempts = 0;
   private readonly mockNow = this.readMockNowFromUrl();
+  private timeCache: Record<string, number> = {};
 
   protected readonly sessions = signal<Session[]>([]);
   protected readonly groupMode = signal<GroupMode>('all');
@@ -523,8 +524,13 @@ export class App implements OnDestroy {
   }
 
   private parseTime(value: string): number {
-    const [hours, minutes] = value.split(':').map((part) => Number(part));
-    return (hours || 0) * 60 + (minutes || 0);
+    let parsed = this.timeCache[value];
+    if (parsed === undefined) {
+      const [hours, minutes] = value.split(':').map((part) => Number(part));
+      parsed = (hours || 0) * 60 + (minutes || 0);
+      this.timeCache[value] = parsed;
+    }
+    return parsed;
   }
 
   private readFavoriteIds(): Set<number> {
